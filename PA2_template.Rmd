@@ -11,7 +11,12 @@ For this purpose the U.S. National Oceanic and Atmospheric Administration's (NOA
 ##Data Processing
 The data for this study come from U.S. National Oceanic and Atmospheric Administration's (NOAA) storm database in the form of a comma-separated-value file.
 ```{r, echo=TRUE, cache=TRUE}
-stormData <- read.csv("./data/repdata-data-StormData.csv")
+if(!file.exists("data")){
+        dir.create("data")
+}
+fileUrl <- "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2FStormData.csv.bz2"
+download.file(fileUrl, destfile="./data/repdata-data-StormData.csv.bz2", method="curl")
+stormData <- read.csv(bzfile("./data/repdata-data-StormData.csv.bz2"))
 ```
 
 
@@ -24,7 +29,7 @@ library(gridExtra)
 ```
 
 ### Most Harmful Population Health Events
-The tables below shows the top ten most harmful severe weather events with respect to population health in form of fatalities respectively injures.  
+The tables below shows the top ten most harmful severe weather events with respect to population health in form of fatalities respectively injures. 
 ```{r, echo=TRUE, results='asis'}         
 eventFatalitiesInjuries <- summarize(group_by(stormData, EVTYPE), 
                                      fatalities = 
@@ -56,6 +61,9 @@ g2 <- ggplot(data=injuriesOrderedFiltered,aes(x=EVTYPE,y=injuries)) +
 #par(mfcol = c(1,2))
 #grid.arrange(g1,g2)
 ```
+The most harmful events in form of fatilities are `r fatalitiesOrderedFiltered$EVTYPE[1]` followed by `r fatalitiesOrderedFiltered$EVTYPE[2]` and `r fatalitiesOrderedFiltered$EVTYPE[3]`.
+
+The most harmful events in form of injures are `r injuriesOrderedFiltered$EVTYPE[1]` followed by `r injuriesOrderedFiltered$EVTYPE[2]` and `r injuriesOrderedFiltered$EVTYPE[3]`.
 
 ### Events of Greatest Economic Consequences
 The figure below shows the top ten types severe weather events which have the greatest economic consequences with respect to property respectively crop damages.
@@ -83,4 +91,7 @@ ggplot(data=cropOrderedFiltered,aes(x=EVTYPE,y=crop)) +
         ylab("Crop Damage [$]")
 ```
 
+The most harmful events in form of economic consequences with respect to property damages are `r propertyOrderedFiltered$EVTYPE[1]` followed by `r propertyOrderedFiltered$EVTYPE[2]` and `r propertyOrderedFiltered$EVTYPE[3]`.
+
+The most harmful events in form of economic consequences with respect to crop damages are `r cropOrderedFiltered$EVTYPE[1]` followed by `r cropOrderedFiltered$EVTYPE[2]` and `r cropOrderedFiltered$EVTYPE[3]`.
 

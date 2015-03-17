@@ -1,7 +1,13 @@
 library(dplyr)
 library(ggplot2)
 library(gridExtra)
-stormData <- read.csv("./data/repdata-data-StormData.csv")
+
+if(!file.exists("data")){
+        dir.create("data")
+}
+fileUrl <- "https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2FStormData.csv.bz2"
+download.file(fileUrl, destfile="./data/repdata-data-StormData.csv.bz2", method="curl")
+stormData <- read.csv(bzfile("./data/repdata-data-StormData.csv.bz2"))
 
 #1
 eventFatalitiesInjuries <- summarize(group_by(stormData, EVTYPE), 
@@ -57,7 +63,38 @@ grid.arrange(g3,g4)
 
 
 
-
+expConverter <- function(exp) {
+        times <- 1
+        if (as.character(exp) == "B") {
+                times <- 10^9
+        }
+         else if (as.character(exp) == "M") {
+                 times <- 10^6
+         }
+         else if (as.character(exp) == "m") {
+                 times <- 10^6
+         }
+         else if (as.character(exp) == "K") {
+                 times <- 10^3
+         }
+         else if (as.character(exp) == "k") {
+                 times <- 10^3
+         }
+         else if (as.character(exp) == "H") {
+                 times <- 10^2
+         }
+         else if (as.character(exp) == "h") {
+                 times <- 10^2
+         }
+          else if (exp == 1) {
+                   times <- 10^as.integer(exp)
+           } 
+        else {
+                times <- 1
+        } 
+        
+        times
+}
 
 
 
