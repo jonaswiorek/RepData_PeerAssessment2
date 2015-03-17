@@ -1,5 +1,6 @@
 library(dplyr)
 library(ggplot2)
+library(gridExtra)
 stormData <- read.csv("./data/repdata-data-StormData.csv")
 
 #1
@@ -13,6 +14,7 @@ fatalitiesOrderedFiltered <- fatalitiesOrdered[1:10,]
 
 injuriesOrdered <- arrange(eventFatalitiesInjuries, desc(injuries))
 injuriesOrderedFiltered <- injuriesOrdered[1:10,]
+
 
 ggplot(data=fatalitiesOrderedFiltered,aes(x=EVTYPE,y=fatalities)) +
   geom_bar( stat="identity") +
@@ -40,17 +42,17 @@ propertyOrderedFiltered <- propertyOrdered[1:10,]
 
 cropOrdered <- arrange(eventPropertyCrop, desc(crop))
 cropOrderedFiltered <- cropOrdered[1:10,]
-
-ggplot(data=propertyOrderedFiltered,aes(x=EVTYPE,y=property)) +
+par(mfrow = c(2,1))
+g3 <- ggplot(data=propertyOrderedFiltered,aes(x=EVTYPE,y=property)) +
         geom_bar( stat="identity") +
         scale_x_discrete(limits = propertyOrderedFiltered$EVTYPE) +
         theme(text = element_text(size=12), axis.text.x = element_text(angle=90))
 
-ggplot(data=cropOrderedFiltered,aes(x=EVTYPE,y=crop)) +
+g4 <- ggplot(data=cropOrderedFiltered,aes(x=EVTYPE,y=crop)) +
         geom_bar( stat="identity") +
         scale_x_discrete(limits = cropOrderedFiltered$EVTYPE) +
         theme(text = element_text(size=12), axis.text.x = element_text(angle=90))
-
+grid.arrange(g3,g4)
 
 
 
