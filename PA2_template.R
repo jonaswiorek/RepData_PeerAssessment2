@@ -63,32 +63,63 @@ grid.arrange(g3,g4)
 
 
 
-expConverter <- function(exp) {
-        times <- 1
-        if (as.character(exp) == "B") {
-                times <- 10^9
-        }
-         else if (as.character(exp) == "M") {
+expConverter <- function(.) {
+        ifelse(.$PROPDMGEXP %in% "B",times <- 10^9,
+               ifelse(.$PROPDMGEXP %in% c("M","m"), times <- 10^6, 
+                      ifelse(.$PROPDMGEXP %in% c("K","k"), times <- 10^3,
+                             ifelse(.$PROPDMGEXP %in% c("H","h"), times <- 10^2,
+                                    ifelse(.$PROPDMGEXP %in% c("1","2","3","4","5","6","7","8"), times <- 10^(as.integer(.$PROPDMGEXP)-4), times <- 1)
+                             )
+                      )
+               )
+        )
+}
+
+         else if () {
                  times <- 10^6
          }
-         else if (as.character(exp) == "m") {
+         else if () {
                  times <- 10^6
          }
-         else if (as.character(exp) == "K") {
+         else if (PROPDMGEXP == "K") {
                  times <- 10^3
          }
-         else if (as.character(exp) == "k") {
+         else if (PROPDMGEXP == "k") {
                  times <- 10^3
          }
-         else if (as.character(exp) == "H") {
+         else if (PROPDMGEXP == "H") {
                  times <- 10^2
          }
-         else if (as.character(exp) == "h") {
+         else if (PROPDMGEXP == "h") {
                  times <- 10^2
          }
-          else if (exp == 1) {
-                   times <- 10^as.integer(exp)
+          else if (PROPDMGEXP == 1) {
+                   times <- 10^as.integer(PROPDMGEXP)
            } 
+        else if (PROPDMGEXP == 1) {
+                times <- 10^as.integer(PROPDMGEXP)
+        } 
+        else if (PROPDMGEXP == 2) {
+                times <- 10^as.integer(PROPDMGEXP)
+        } 
+        else if (PROPDMGEXP == 3) {
+                times <- 10^as.integer(PROPDMGEXP)
+        } 
+        else if (PROPDMGEXP == 4) {
+                times <- 10^as.integer(PROPDMGEXP)
+        } 
+        else if (PROPDMGEXP == 5) {
+                times <- 10^as.integer(PROPDMGEXP)
+        } 
+        else if (PROPDMGEXP == 6) {
+                times <- 10^as.integer(PROPDMGEXP)
+        } 
+        else if (PROPDMGEXP == 7) {
+                times <- 10^as.integer(PROPDMGEXP)
+        } 
+        else if (PROPDMGEXP == 8) {
+                times <- 10^as.integer(PROPDMGEXP)
+        } 
         else {
                 times <- 1
         } 
@@ -97,7 +128,10 @@ expConverter <- function(exp) {
 }
 
 
-
+addConverter <- function() {
+        ifelse(C == "K",A+B, ifelse(C == "M", A*B,1))
+}        
+       
 
 # qplot(x=EVTYPE, y=fatalities, data= fatalitiesOrderedFiltered, geom="bar")
 # 
