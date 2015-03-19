@@ -29,7 +29,7 @@ library(gridExtra)
 ```
 
 ### Most Harmful Population Health Events
-The tables below shows the top ten most harmful severe weather events with respect to population health in form of fatalities respectively injures. 
+The tables below show the top ten most harmful severe weather events with respect to population health in form of fatalities respectively injures. 
 ```{r, echo=TRUE, results='asis'}
 # A data frame is created that summarize the number of fatatlities and injuries
 # per event type
