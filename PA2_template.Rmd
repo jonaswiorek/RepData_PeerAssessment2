@@ -71,7 +71,7 @@ The most harmful events in form of fatilities are `r fatalitiesOrderedFiltered$E
 The most harmful events in form of injures are `r injuriesOrderedFiltered$EVTYPE[1]` followed by `r injuriesOrderedFiltered$EVTYPE[2]` and `r injuriesOrderedFiltered$EVTYPE[3]`.
 
 ### Events of Greatest Economic Consequences
-The figure below shows the top ten types severe weather events which have the greatest economic consequences with respect to property respectively crop damages.
+The figures below show the top ten types severe weather events which have the greatest economic consequences with respect to property respectively crop damages.
 ```{r, echo=TRUE, results='asis'}
 # Function to translate PROPDMGEXP and CROPDMGEXP to factors to multiple the values
 # in columns PROPDMG and CROPDMG.
