@@ -63,16 +63,20 @@ grid.arrange(g3,g4)
 
 
 
-expConverter <- function(.) {
-        ifelse(.$PROPDMGEXP %in% "B",times <- 10^9,
-               ifelse(.$PROPDMGEXP %in% c("M","m"), times <- 10^6, 
-                      ifelse(.$PROPDMGEXP %in% c("K","k"), times <- 10^3,
-                             ifelse(.$PROPDMGEXP %in% c("H","h"), times <- 10^2,
-                                    ifelse(.$PROPDMGEXP %in% c("1","2","3","4","5","6","7","8"), times <- 10^(as.integer(.$PROPDMGEXP)-4), times <- 1)
-                             )
-                      )
-               )
-        )
+exp2Factor <- function(.) {
+        ifelse(. %in% "B",times <- 10^9,
+        ifelse(. %in% c("M","m"), times <- 10^6, 
+        ifelse(. %in% c("K","k"), times <- 10^3,
+        ifelse(. %in% c("H","h"), times <- 10^2,
+        ifelse(. %in% "1", times <- 10^1,
+        ifelse(. %in% "2", times <- 10^2,
+        ifelse(. %in% "3", times <- 10^3,
+        ifelse(. %in% "4", times <- 10^4,
+        ifelse(. %in% "5", times <- 10^5,
+        ifelse(. %in% "6", times <- 10^6,
+        ifelse(. %in% "7", times <- 10^7,
+        ifelse(. %in% "8", times <- 10^8,
+               times <- 1))))))))))))
 }
 
          else if () {
