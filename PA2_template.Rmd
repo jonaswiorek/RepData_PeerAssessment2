@@ -1,7 +1,7 @@
 ---
 title: "Public health and economic problems caused by severe weather events"
 author: "Jonas Wiorek"
-date: "19 Mar 2015"
+date: "April 26, 2015"
 output: html_document
 ---
 ##Synopsis
@@ -114,24 +114,24 @@ eventPropertyCrop <- summarize(group_by(stormData, EVTYPE),
                                      crop = sum(CROPDMG*CROPDMGFACTOR, na.rm =TRUE))
 
 # A data frame is created which order the events in descending order of economical
-# consequences of damages of property. The top ten is exctracted.
+# consequences of damages of property. The top twenty is exctracted.
 propertyOrdered <- arrange(eventPropertyCrop, desc(property))
-propertyOrderedFiltered <- propertyOrdered[1:10,]
+propertyOrderedFiltered <- propertyOrdered[1:20,]
 
 # A data frame is created which order the events in descending order of economical
-# consequences of damages of crop. The top ten is exctracted.
+# consequences of damages of crop. The top twenty is exctracted.
 cropOrdered <- arrange(eventPropertyCrop, desc(crop))
-cropOrderedFiltered <- cropOrdered[1:10,]
+cropOrderedFiltered <- cropOrdered[1:20,]
 
 ggplot(data=propertyOrderedFiltered,aes(x=EVTYPE,y=property)) +
-        geom_bar( stat="identity") +
+        geom_bar( stat="identity", fill = 'orange') +
         scale_x_discrete(limits = propertyOrderedFiltered$EVTYPE) +
         theme(text = element_text(size=12), axis.text.x = element_text(angle=90)) +
         xlab("Event Type") +
         ylab("Property Damage [$]")
 
 ggplot(data=cropOrderedFiltered,aes(x=EVTYPE,y=crop)) +
-        geom_bar( stat="identity") +
+        geom_bar( stat="identity", fill = 'orange') +
         scale_x_discrete(limits = cropOrderedFiltered$EVTYPE) +
         theme(text = element_text(size=12), axis.text.x = element_text(angle=90)) +
         xlab("Event Type") +
